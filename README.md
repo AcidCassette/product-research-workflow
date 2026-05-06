@@ -1,105 +1,70 @@
 # product-research-workflow
+A Claude Skill that turns messy product observations into structured, deliverable PM reports.
 
-A Claude Skill for structured PM research reports — competitive analysis, product experience reports, user research, and more.
+## The Problem
 
-中文 PM 调研工作流 · 帮你把原始观察变成高密度、可交付的结构化报告。
+Product research has two distinct modes that are easy to confuse.
 
----
+**Exploration** needs freedom — rough notes, intuitions, rabbit holes.  
+**Delivery** needs discipline — evidence, structure, conclusions first.
 
-## What it does · 做什么
+When you mix the two, reports end up reading like thinking diaries: chronological, full of unverified speculation, personal reflections tangled with facts. AI assistants make it worse by adding judgment ("very clever design") without evidence, and inferring things on your behalf that you never actually observed.
 
-This skill gives Claude a **four-phase workflow** for any PM research task:
+This skill exists to separate the two modes — so your exploration stays messy and free, and your deliverable comes out structured and credible.
 
-| Phase | Name | What happens |
-|-------|------|-------------|
-| 0 | Task Contract | Lock in deliverables before exploring — prevents goal drift |
-| 1 | Felt Exploration | Free-form observation, Claude records faithfully without adding judgment |
-| 2 | Classification & Verification | Sort observations into facts / personal notes / claims to verify |
-| 2.5 | Outline Preview | Agree on structure before writing — 10× cheaper to fix than HTML |
-| 3 | Final Report | High-density, structured deliverable with evidence and dual screenshots |
+## The Approach
+Three principles, borrowed from Barbara Minto's Pyramid Principle and refined through real project work:
 
-Built on **Barbara Minto's Pyramid Principle**: think bottom-up, present top-down.
+- **Reports are not thinking diaries.** Your exploration process stays with you. Only conclusions and evidence reach the reader.
+- **Think bottom-up, present top-down.** Explore freely and gather observations first. When it's time to write, flip the order — lead with conclusions, support with evidence.
+- **Judgment earns value through evidence.** "Great design" without a screenshot is decoration. Every claim needs a fact, a data point, or a source.
 
----
 
-## Trigger keywords · 触发关键词
+## The Workflow
+The skill guides Claude through four phases:
 
-The skill activates automatically when you mention:
+**Phase 0 · Task Contract**  
+Before any exploration begins, lock in what you need to deliver. Write down the exact request, break it into checkable deliverables, define what "done" looks like. This prevents goal drift — the tendency to chase interesting tangents while forgetting what was actually asked for.
 
+**Phase 1 · Felt Exploration**  
+Explore the product freely. Claude acts as a faithful recorder — capturing your observations in your own words, without adding judgment or restructuring your thoughts. Low density is expected. Rough is fine.
+
+**Phase 2 · Classification & Verification**  
+Sort every observation into three buckets: facts you saw firsthand (green), your personal inferences (yellow), and claims about external things that need verification (red). Red claims get web-searched before they can enter the report.
+
+**Phase 2.5 · Outline Preview**  
+Produce a text-only outline before writing any HTML. Decide what goes into the report and what stays in your personal archive. Fixing structure at outline stage is 10× cheaper than fixing it in a finished document.
+
+**Phase 3 · Final Report**  
+Write the deliverable. Conclusions first in every section. Evidence for every claim. Paired screenshots for every product comparison. Specific, actionable recommendations — not "consider improving X" but "add feature Y in scenario Z."
+
+## File Structure
 ```
-竞品调研 · 产品调研 · 体验报告 · 竞品报告 · 产品体验 · 调研报告
-good bad 分析 · 产品对比 · 写报告 · 整理发现 · 给老板看
-competitive analysis · product research · UX report · product review
+product-research-workflow/
+├── SKILL.md                    — Main skill file (Claude reads this)
+└── references/
+    ├── task-contract.md        — Task contract template with 7 sections
+    ├── pyramid-principle.md    — Minto Pyramid, SCQA, MECE, Rule of 3
+    ├── writing-rules.md        — 10 hard writing rules for the final report
+    └── report-templates.md     — 5 report templates for different task types
 ```
 
-No slash commands needed — just talk naturally.
+## Install
+**Claude.ai (web/app)**
 
----
+1. Download the ZIP from Releases
+2. Go to claude.ai → Settings → Customize → Skills → Upload
+3. Toggle the skill on
 
-## Install · 安装
+The skill activates automatically when you mention things like "competitive analysis", "product research", "write a report", or "help me organize my findings."
 
-### Option A · Claude.ai (web)
-
-1. Download [`product-research-workflow.zip`](../../releases/latest) from Releases
-2. Go to **claude.ai → Settings → Capabilities** → enable **Code execution and file creation**
-3. Go to **Customize → Skills → Upload** → upload the ZIP
-4. Toggle the skill **on**
-
-Done. The skill will activate automatically on relevant requests.
-
-### Option B · Claude Code (terminal)
-
+**Claude Code (terminal)**
 ```bash
-# Personal install (works across all projects)
 cp -r product-research-workflow ~/.claude/skills/
 ```
 
----
-
-## File structure · 文件结构
-
-```
-product-research-workflow/
-├── SKILL.md                    ← Main skill file (Claude reads this)
-└── references/
-    ├── task-contract.md        ← Full task contract template (7 sections)
-    ├── pyramid-principle.md    ← Minto Pyramid, SCQA, MECE, Rule of 3
-    ├── writing-rules.md        ← 10 hard writing rules for Phase 3
-    └── report-templates.md     ← 5 report templates (A–E)
-```
-
----
-
-## Core principles · 核心原则
-
-1. **Reports are not thinking diaries** · 报告不是思考日记
-   Thinking process stays with the author. Conclusions go to the reader.
-
-2. **Think bottom-up, present top-down** · 自下而上思考，自上而下呈现
-   Explore freely first. Structure only when you know what you've found.
-
-3. **Judgment earns value through evidence** · 判断的价值来自证据
-   "Very clever design" without evidence is decoration, not analysis.
-
----
-
-## What the final report looks like · 产出报告长什么样
-
-- **§ 0 · Core Insight** — conclusions visible within 60 seconds of opening
-- **MECE-organized body sections** — each with leading conclusions + evidence
-- **Paired screenshots** for every product/interaction difference
-- **Specific, prioritized, actionable recommendations**
-- Separation of exploration process (→ self-archive) from deliverable content
-
----
-
-## Author · 作者
-
-Made by **Sage** · PM intern at Noiz AI  
-Built during Day 1–2 of onboarding, refined through real competitive analysis work.
-
----
+## Author
+Built by Sage.
 
 ## License
-
-MIT — use freely, attribution appreciated.
+MIT
